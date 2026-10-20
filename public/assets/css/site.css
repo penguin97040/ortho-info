@@ -4,14 +4,15 @@
   --bg: #0f1012;
   --surface: #15171a;
   --surface-2: #1c1f23;
+  --surface-3: #20242a;
   --line: #262a30;
   --line-strong: #353a42;
   --text: #e8e9eb;
   --muted: #9a9ea6;
-  --accent: #8ab4f8;
-  --accent-strong: #a9c8fb;
-  --accent-soft: rgba(138, 180, 248, 0.12);
-  --accent-line: rgba(138, 180, 248, 0.5);
+  --accent: #18b8d8;
+  --accent-strong: #5fd0e8;
+  --accent-soft: rgba(24, 184, 216, 0.14);
+  --accent-line: rgba(24, 184, 216, 0.5);
   --grid: rgba(255, 255, 255, 0.035);
 
   --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -40,9 +41,7 @@ html { -webkit-text-size-adjust: 100%; scroll-padding-top: 88px; }
 
 body {
   margin: 0;
-  background:
-    radial-gradient(1100px 480px at 50% -220px, rgba(138, 180, 248, 0.09), transparent 70%) no-repeat,
-    var(--bg);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font);
   font-size: 1.0625rem;
@@ -123,7 +122,7 @@ main { padding-top: 48px; padding-bottom: 72px; container-type: inline-size; ani
 .content > h1, .content > h2, .content > p, .content > .eyebrow, .content > .tldr, .content > .note,
 .content > details, .content > ul:not(.grid), .content > ol:not(.grid) { max-width: var(--wrap); }
 
-.sidebar-label, .eyebrow, .tldr span, .num, .count, th, .site-footer h2, .stepper-list dt, .myth-label, .stat b {
+.sidebar-label, .eyebrow, .tldr span, .num, .count, th, .site-footer h2, .stepper-list dt, .myth-label {
   font-family: var(--mono); letter-spacing: 0.06em;
 }
 .sidebar-label { margin: 0 0 10px; font-size: 0.75rem; text-transform: uppercase; color: var(--muted); }
@@ -173,24 +172,23 @@ strong { font-weight: 650; }
 
 /* ---------- Home ---------- */
 
+.hero-cross { display: none; }
 .hero { position: relative; isolation: isolate; padding: 32px 0 16px; display: grid; gap: 32px; align-items: end; }
 .hero::before {
-  content: ""; position: absolute; z-index: -1; inset: -48px -16px auto; height: 480px; pointer-events: none;
+  content: ""; position: absolute; z-index: -1; inset: -48px -16px 0; pointer-events: none; border-bottom: 1px solid var(--line);
   background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size: 48px 48px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 25% 0%, #000 10%, transparent 75%);
-  mask-image: radial-gradient(ellipse 70% 80% at 25% 0%, #000 10%, transparent 75%);
 }
 .hero h1 { font-size: clamp(2.5rem, 8vw, 4.25rem); line-height: 1.04; max-width: 15ch; }
-@container (min-width: 900px) { .hero { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 56px; } }
+@container (min-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 56px; padding-bottom: 48px; }
+  .hero-cross { display: block; justify-self: center; align-self: center; height: clamp(220px, 28vw, 320px); width: auto; fill: var(--accent); }
+}
 
-.stats { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); background: rgba(21, 23, 26, 0.7); }
-.stat { display: flex; align-items: baseline; gap: 16px; padding: 16px 20px; margin: 0; border-bottom: 1px solid var(--line); }
-.stat:last-child { border-bottom: 0; }
-.stat b { flex: none; min-width: 5.5em; color: var(--accent); font-size: 1rem; font-weight: 600; }
-.stat span { color: var(--muted); font-size: 0.95rem; }
 
-.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+/* Buttons in a group share one width, so a pair always matches. */
+.actions { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 28px; }
+@container (min-width: 520px) { .actions { grid-template-columns: repeat(2, 16rem); } }
 
 /* ---------- Buttons ---------- */
 
@@ -207,6 +205,7 @@ strong { font-weight: 650; }
 .btn .arrow { display: inline-block; transition: transform var(--dur) var(--ease); }
 .btn:hover .arrow { transform: translateX(3px); }
 .btn:hover .arrow.back { transform: translateX(-3px); }
+.btn:hover .arrow.down { transform: translateY(3px); }
 .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
 .btn-primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); color: var(--bg); box-shadow: 0 8px 24px -10px var(--accent); }
 .btn[disabled] { opacity: 0.35; cursor: default; pointer-events: none; }
@@ -225,7 +224,7 @@ strong { font-weight: 650; }
 
 .card {
   position: relative; height: 100%;
-  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  background: var(--surface-2);
   border: 1px solid var(--line); border-radius: var(--radius);
   padding: 20px 22px; margin: 0;
 }
@@ -238,9 +237,9 @@ strong { font-weight: 650; }
 
 a.card {
   display: block; color: var(--text); text-decoration: none; padding-bottom: 44px;
-  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), background-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
-a.card:hover { transform: translateY(-2px); border-color: var(--line-strong); box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.9); color: var(--text); }
+a.card:hover { transform: translateY(-2px); background: var(--surface-3); border-color: var(--line-strong); box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.9); color: var(--text); }
 a.card::after {
   content: "\2192"; position: absolute; right: 20px; bottom: 14px; color: var(--muted);
   transition: transform var(--dur) var(--ease), color var(--dur) var(--ease);
@@ -317,7 +316,7 @@ details[open] .details-body { animation: drop var(--dur-slow) var(--ease) both; 
 .stepper { margin: 8px 0 24px; }
 .stepper-list { list-style: none; padding: 0; margin: 0; }
 .stepper-list > li {
-  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  background: var(--surface-2);
   border: 1px solid var(--line); padding: 22px 24px; margin: 0 0 10px;
 }
 .stepper-list .count { color: var(--accent); font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; }
@@ -336,6 +335,7 @@ details[open] .details-body { animation: drop var(--dur-slow) var(--ease) both; 
   display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "prev dots next";
   align-items: center; gap: 12px; margin-top: 14px;
 }
+.stepper-controls .btn { min-width: 8rem; }
 .stepper-controls .prev { grid-area: prev; }
 .stepper-controls .next { grid-area: next; }
 .stepper-dots { grid-area: dots; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
