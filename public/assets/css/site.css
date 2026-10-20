@@ -7,6 +7,7 @@
   --surface-3: #20242a;
   --line: #262a30;
   --line-strong: #353a42;
+  --btn-line: #5c626c;
   --text: #e8e9eb;
   --muted: #9a9ea6;
   --accent: #18b8d8;
@@ -194,8 +195,8 @@ strong { font-weight: 650; }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 12px 20px; border-radius: var(--radius); border: 1px solid var(--line-strong);
-  background: var(--surface-2); color: var(--text); font: inherit; font-size: 0.95rem; font-weight: 600;
+  padding: 12px 20px; border-radius: var(--radius); border: 1px solid var(--btn-line);
+  background: transparent; color: var(--text); font: inherit; font-size: 0.95rem; font-weight: 600;
   text-decoration: none; cursor: pointer; white-space: nowrap;
   transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease),
     transform var(--dur-fast) var(--ease), box-shadow var(--dur) var(--ease);
