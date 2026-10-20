@@ -4,50 +4,94 @@
 
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Liturgy stepper: turns the ordered list into one-step-at-a-time cards.
+  // Liturgy stepper: turns the ordered list into one-step-at-a-time cards,
+  // with a step index on wide screens and dots on narrow ones.
   function initStepper(root) {
     var items = Array.prototype.slice.call(root.querySelectorAll(".stepper-list > li"));
     if (items.length < 2) return;
     var current = 0;
 
-    var controls = document.createElement("div");
-    controls.className = "stepper-controls";
+    function el(tag, className, text) {
+      var node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text) node.textContent = text;
+      return node;
+    }
 
-    var prev = document.createElement("button");
-    prev.type = "button";
-    prev.className = "btn";
-    prev.textContent = "← Back";
+    function arrowButton(className, label, arrow, arrowClass, arrowFirst) {
+      var b = el("button", className);
+      b.type = "button";
+      var a = el("span", arrowClass, arrow);
+      a.setAttribute("aria-hidden", "true");
+      var t = el("span", "label", label);
+      if (arrowFirst) { b.appendChild(a); b.appendChild(t); } else { b.appendChild(t); b.appendChild(a); }
+      return b;
+    }
 
-    var next = document.createElement("button");
-    next.type = "button";
-    next.className = "btn btn-primary";
+    var titles = items.map(function (item) { return item.querySelector("h3").textContent; });
 
-    var dots = document.createElement("div");
-    dots.className = "stepper-dots";
-    items.forEach(function (item, i) {
-      var dot = document.createElement("button");
+    var index = el("ol", "stepper-index");
+    index.setAttribute("aria-label", "Parts of the Liturgy");
+    var indexButtons = titles.map(function (title, i) {
+      var li = el("li");
+      var b = el("button");
+      b.type = "button";
+      b.appendChild(el("span", "", String(i + 1).padStart(2, "0")));
+      b.appendChild(document.createTextNode(title.replace(/[“”]/g, "")));
+      b.addEventListener("click", function () { show(i, true); });
+      li.appendChild(b);
+      index.appendChild(li);
+      return b;
+    });
+
+    var controls = el("div", "stepper-controls");
+    var prev = arrowButton("btn prev", "Back", "←", "arrow back", true);
+    var next = arrowButton("btn btn-primary next", "Next", "→", "arrow", false);
+    var nextLabel = next.querySelector(".label");
+
+    var dots = el("div", "stepper-dots");
+    var dotButtons = titles.map(function (title, i) {
+      var dot = el("button");
       dot.type = "button";
-      dot.setAttribute("aria-label", "Step " + (i + 1) + ": " + item.querySelector("h3").textContent);
+      dot.setAttribute("aria-label", "Step " + (i + 1) + ": " + title);
       dot.addEventListener("click", function () { show(i, true); });
       dots.appendChild(dot);
+      return dot;
     });
 
     controls.appendChild(prev);
     controls.appendChild(dots);
     controls.appendChild(next);
+    root.insertBefore(index, root.firstChild);
     root.appendChild(controls);
     root.classList.add("is-live");
 
-    function show(i, focus) {
-      current = Math.max(0, Math.min(items.length - 1, i));
-      items.forEach(function (item, j) { item.hidden = j !== current; });
-      Array.prototype.forEach.call(dots.children, function (dot, j) {
-        if (j === current) dot.setAttribute("aria-current", "step");
-        else dot.removeAttribute("aria-current");
+    function mark(buttons) {
+      buttons.forEach(function (b, j) {
+        if (j === current) b.setAttribute("aria-current", "step");
+        else b.removeAttribute("aria-current");
       });
+    }
+
+    function show(i, focus) {
+      var target = Math.max(0, Math.min(items.length - 1, i));
+      var dir = target < current ? "prev" : "next";
+      current = target;
+      items.forEach(function (item, j) {
+        item.hidden = j !== current;
+        item.classList.remove("enter");
+      });
+      if (focus) {
+        var shown = items[current];
+        shown.setAttribute("data-dir", dir);
+        void shown.offsetWidth; // restart the entrance animation
+        shown.classList.add("enter");
+      }
+      mark(dotButtons);
+      mark(indexButtons);
       prev.disabled = current === 0;
       next.disabled = current === items.length - 1;
-      next.textContent = current === items.length - 1 ? "The end" : "Next →";
+      nextLabel.textContent = current === items.length - 1 ? "The end" : "Next";
       if (focus) {
         var heading = items[current].querySelector("h3");
         heading.setAttribute("tabindex", "-1");
