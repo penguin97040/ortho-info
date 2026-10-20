@@ -17,8 +17,8 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
-  <div class="wrap header-inner">
-    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>First Liturgy</a>
+  <div class="wrap-wide header-inner">
+    <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="10.6" y="1.5" width="2.8" height="21"/><rect x="8" y="4.2" width="8" height="2.2"/><rect x="4" y="8.4" width="16" height="2.6"/><rect x="7" y="15.7" width="10" height="2.4" transform="rotate(18 12 16.9)"/></svg>First Liturgy</a>
     <nav aria-label="Main">
       <ul>
         <li><a href="/basics">Basics</a></li>
@@ -30,32 +30,45 @@
     </nav>
   </div>
 </header>
-<main id="main" class="wrap">
+<main id="main" class="wrap-wide">
 <section class="hero">
-  <p class="eyebrow">404</p>
-  <h1>Page not found.</h1>
-  <p class="lede">That page doesn’t exist, or it has moved.</p>
-  <div class="actions">
-    <a class="btn btn-primary" href="/">Go home</a>
-    <a class="btn" href="#topics">All topics</a>
+  <div>
+    <p class="eyebrow">404</p>
+    <h1>Page not found.</h1>
+    <p class="lede">That page doesn’t exist, or it has moved.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/">Go home <span class="arrow" aria-hidden="true">→</span></a>
+      <a class="btn" href="#topics">All topics</a>
+    </div>
   </div>
 </section>
 </main>
 <footer class="site-footer" id="topics">
-  <div class="wrap">
-    <h2>All topics</h2>
-    <ol>
-      <li><a href="/basics">The big picture</a></li>
-      <li><a href="/myths">Common misconceptions</a></li>
-      <li><a href="/mary">Mary and the saints</a></li>
-      <li><a href="/liturgy">The Divine Liturgy</a></li>
-      <li><a href="/church">Inside the church</a></li>
-      <li><a href="/year">The church year</a></li>
-      <li><a href="/serbian">Serbian traditions</a></li>
-      <li><a href="/becoming">Becoming Orthodox</a></li>
-      <li><a href="/resources">Keep learning</a></li>
-    </ol>
-    <p>An unofficial beginner’s guide to the Orthodox Church. Practice varies between churches and parishes, so when in doubt, ask your priest.</p>
+  <div class="wrap-wide">
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="10.6" y="1.5" width="2.8" height="21"/><rect x="8" y="4.2" width="8" height="2.2"/><rect x="4" y="8.4" width="16" height="2.6"/><rect x="7" y="15.7" width="10" height="2.4" transform="rotate(18 12 16.9)"/></svg>First Liturgy</p>
+        <p>An unofficial beginner’s guide to the Orthodox Church. Practice varies between churches and parishes, so when in doubt, ask your priest.</p>
+      </div>
+      <div>
+        <h2>All topics</h2>
+        <ol>
+          <li><a href="/basics">The big picture</a></li>
+          <li><a href="/myths">Common misconceptions</a></li>
+          <li><a href="/mary">Mary and the saints</a></li>
+          <li><a href="/liturgy">The Divine Liturgy</a></li>
+          <li><a href="/church">Inside the church</a></li>
+          <li><a href="/year">The church year</a></li>
+          <li><a href="/serbian">Serbian traditions</a></li>
+          <li><a href="/becoming">Becoming Orthodox</a></li>
+          <li><a href="/resources">Keep learning</a></li>
+        </ol>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Made in NZ<span class="sep">·</span>Content <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener noreferrer license">CC BY-SA 4.0</a><span class="sep">·</span>Code <a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="noopener noreferrer license">GPL-3.0</a></p>
+      <a class="gh-link" href="https://github.com/penguin97040/ortho-info" rel="noopener noreferrer" aria-label="Source on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a>
+    </div>
   </div>
 </footer>
 </body>
