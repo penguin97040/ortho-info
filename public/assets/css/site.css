@@ -172,7 +172,11 @@ strong { font-weight: 650; }
 
 /* ---------- Home ---------- */
 
-.hero-cross { display: none; }
+.hero-cross {
+  display: none;
+  filter: drop-shadow(0 0 10px rgb(95 208 232 / 0%)) drop-shadow(0 0 32px rgb(24 184 216 / 0%));
+  transition: filter 600ms var(--ease);
+}
 @media (hover: hover) {
   .hero-cross:hover { filter: drop-shadow(0 0 10px rgb(95 208 232 / 55%)) drop-shadow(0 0 32px rgb(24 184 216 / 40%)); }
 }
